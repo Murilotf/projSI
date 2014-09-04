@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Grafo {
@@ -77,6 +79,37 @@ public class Grafo {
 
 		clearNodes();
 	}
+	
+	public void bfs()
+	{
+		
+		//BFS uses Queue data structure
+		Queue<Nodo> fila=new LinkedList<Nodo>();
+		fila.add(this.nodoRaiz);
+		imprimeNodo(this.nodoRaiz);
+		nodoRaiz.visitado=true;
+		while(!fila.isEmpty())
+		{
+			Nodo n=(Nodo)fila.remove();
+			Nodo filho=null;
+			while((filho=getFilhosNaoVisitados(n))!=null)
+			{
+				filho.visitado=true;
+				impressao.add(filho.nome);
+				fila.add(filho);
+			
+				if (filho.destinoFinal == true) {
+					imprimeCidades(impressao);
+					return;
+			}
+		}
+		}
+		clearNodes();
+		
+	}
+
+
+	
 
 	private void imprimeCidades(ArrayList<String> impressao2) {
 		for (String cidade : impressao2) {
@@ -92,21 +125,41 @@ public class Grafo {
 			for (int j = 0; j < matrizAdjacente[i].length; j++) {
 				if (count == 0) {
 					for (int j2 = 0; j2 < matrizAdjacente[i].length; j2++) {
-						System.out.print(String.format("%1$" + 15 + "s",nodos.get(j2).nome));
+						System.out.print(String.format("%1$" + 15 + "s",
+								nodos.get(j2).nome));
 					}
 					if (count == 0) {
 						System.out.println("");
 						count++;
 					}
 				}
-				if (coun2==0) {
+				if (coun2 == 0) {
 					System.out.println("");
 					coun2++;
 				}
-				System.out.print(String.format("%1$" + 15 + "s",matrizAdjacente[i][j]) +" | ");
+				System.out.print(String.format("%1$" + 15 + "s",
+						matrizAdjacente[i][j]) + " | ");
 			}
 			System.out.println("");
 
+		}
+	}
+
+	public void imprimeMatriz2() {
+		System.out.print("                    ");
+		for (int i = 0; i < nodos.size(); i++) {
+			System.out
+					.print(String.format("%1$" + 17 + "s", nodos.get(i).nome));
+		}
+		System.out.println("");
+		for (int j = 0; j < nodos.size(); j++) {
+			System.out
+					.print(String.format("%1$" + 17 + "s", nodos.get(j).nome));
+			for (int i = 0; i < matrizAdjacente[j].length; i++) {
+				System.out
+				.print(String.format("%1$" + 17 + "d", matrizAdjacente[j][i]));
+			}
+			System.out.println("");
 		}
 	}
 
