@@ -102,7 +102,8 @@ public class Principal {
 
 		
 		
-		g.buscaProfunda();
+//		g.buscaProfunda();
+		g.imprimeMatriz();
 		System.out.println("\nCusto total: "+Grafo.somatorioCaminho);
 		
 	
