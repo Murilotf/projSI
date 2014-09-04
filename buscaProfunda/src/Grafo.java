@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -49,7 +51,7 @@ public class Grafo {
 		return null;
 	}
 
-	public void buscaProfunda() {
+	public void buscaProfundidade() {
 
 		Stack<Nodo> s = new Stack<Nodo>();
 		s.push(this.nodoRaiz);
@@ -79,38 +81,45 @@ public class Grafo {
 
 		clearNodes();
 	}
-	
-	public void bfs()
-	{
-		
-		//BFS uses Queue data structure
-		Queue<Nodo> fila=new LinkedList<Nodo>();
+
+	public void buscaLargura() {
+
+		// BFS uses Queue data structure
+		Queue<Nodo> fila = new LinkedList<Nodo>();
 		fila.add(this.nodoRaiz);
 		imprimeNodo(this.nodoRaiz);
-		nodoRaiz.visitado=true;
-		while(!fila.isEmpty())
-		{
-			Nodo n=(Nodo)fila.remove();
-			Nodo filho=null;
-			while((filho=getFilhosNaoVisitados(n))!=null)
-			{
-				filho.visitado=true;
-				impressao.add(filho.nome);
+		nodoRaiz.visitado = true;
+		while (!fila.isEmpty()) {
+			Nodo n = (Nodo) fila.remove();
+			Nodo filho = null;
+			while ((filho = getFilhosNaoVisitados(n)) != null) {
+				filho.pai = n;
+				filho.visitado = true;
 				fila.add(filho);
-			
 				if (filho.destinoFinal == true) {
-					imprimeCidades(impressao);
+					imprimeCidadesComNodoPai(filho);
 					return;
+				}
 			}
 		}
-		}
 		clearNodes();
+
+	}
+	
+	private void imprimeCidadesComNodoPai(Nodo nodo){
+		List<Nodo> cidades = new ArrayList<>();
+		while(nodo.pai !=null){
+			cidades.add(nodo);
+			nodo = nodo.pai;
+		}
+		Collections.reverse(cidades);
+		for (Nodo cidade : cidades) {
+			somatorioCaminho += matrizAdjacente[nodos.indexOf(cidade.pai)][nodos.indexOf(cidade)];
+			System.out.print(cidade.nome + " ");
+		}
 		
 	}
-
-
 	
-
 	private void imprimeCidades(ArrayList<String> impressao2) {
 		for (String cidade : impressao2) {
 			System.out.print(cidade + " ");
@@ -146,18 +155,18 @@ public class Grafo {
 	}
 
 	public void imprimeMatriz2() {
-		System.out.print("                    ");
+		System.out.print("                        ");
 		for (int i = 0; i < nodos.size(); i++) {
 			System.out
-					.print(String.format("%1$" + 17 + "s", nodos.get(i).nome));
+					.print(String.format("%1$" + 20 + "s", nodos.get(i).nome));
 		}
 		System.out.println("");
 		for (int j = 0; j < nodos.size(); j++) {
 			System.out
-					.print(String.format("%1$" + 17 + "s", nodos.get(j).nome));
+					.print(String.format("%1$" + 20 + "s", nodos.get(j).nome));
 			for (int i = 0; i < matrizAdjacente[j].length; i++) {
-				System.out
-				.print(String.format("%1$" + 17 + "d", matrizAdjacente[j][i]));
+				System.out.print(String.format("%1$" + 20 + "d",
+						matrizAdjacente[j][i]));
 			}
 			System.out.println("");
 		}

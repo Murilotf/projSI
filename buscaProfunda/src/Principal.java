@@ -32,6 +32,8 @@ public class Principal {
 		Nodo nChapeco=new Nodo("Chapeco", false);
 		Nodo nXanxere=new Nodo("Xanxere", false);
 		Nodo nMaravilha=new Nodo("Maravilha", false);
+		Nodo nBomRetiro=new Nodo("BomRetiro", false);
+		Nodo nBlumenau=new Nodo("Blumenau", false);
 
 		Grafo g = new Grafo();
 		g.adicionaNodo(nFloripa);
@@ -59,6 +61,8 @@ public class Principal {
 		g.adicionaNodo(nChapeco);
 		g.adicionaNodo(nIrai);
 		g.adicionaNodo(nMaravilha);
+		g.adicionaNodo(nBlumenau);
+		g.adicionaNodo(nBomRetiro);
 		g.setNodoRaiz(nFloripa);
 
 		
@@ -66,20 +70,28 @@ public class Principal {
 		g.conectaNodo(nFloripa,nItajai, 70);
 		g.conectaNodo(nPalhoca,nItajai, 80);
 		g.conectaNodo(nPalhoca,nLaguna, 100);
+		g.conectaNodo(nPalhoca,nBomRetiro, 100);
 		g.conectaNodo(nLaguna,nArarangua, 70);
+		g.conectaNodo(nLaguna,nBomRetiro, 120);		
+		g.conectaNodo(nNavegantes,nBlumenau, 50);
 		g.conectaNodo(nNavegantes,nJoinville, 70);
 		g.conectaNodo(nArarangua,nLages, 220);
+		g.conectaNodo(nArarangua,nBomRetiro, 190);
+		g.conectaNodo(nLages,nBomRetiro, 50);
 		g.conectaNodo(nLages,nPonteAlta, 40);
 		g.conectaNodo(nLages,nCamposNovos, 60);
+		g.conectaNodo(nItajai,nBomRetiro, 140);
 		g.conectaNodo(nItajai,nNavegantes, 10);
 		g.conectaNodo(nJoinville,nMafra, 80);
 		g.conectaNodo(nMafra,nPortoUniao, 130);
 		g.conectaNodo(nMafra,nCanoinhas, 70);
 		g.conectaNodo(nMafra,nMonteCastelo, 85);
-		g.conectaNodo(nMonteCastelo,nCanoinhas, 80);
 		g.conectaNodo(nCanoinhas,nPortoUniao, 80);
+		g.conectaNodo(nMonteCastelo,nCanoinhas, 80);
+		g.conectaNodo(nMonteCastelo,nBlumenau, 85);
 		g.conectaNodo(nMonteCastelo, nPonteAlta, 90);
 		g.conectaNodo(nPonteAlta,nCamposNovos, 40);
+		g.conectaNodo(nPonteAlta,nBlumenau, 110);
 		g.conectaNodo(nCamposNovos,nHervalDoeste, 30);
 		g.conectaNodo(nCamposNovos,nCapinzal, 45);
 		g.conectaNodo(nCapinzal,nHervalDoeste, 15);
@@ -102,9 +114,9 @@ public class Principal {
 
 		
 		
-//		g.buscaProfunda();
-		g.bfs();
-//		g.imprimeMatriz2();
+//		g.buscaProfundidade();
+//		g.buscaLargura();
+		g.imprimeMatriz2();
 		System.out.println("\nCusto total: "+Grafo.somatorioCaminho);
 		
 	
